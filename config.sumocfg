@@ -1,0 +1,20 @@
+<configuration>
+    <input>
+        <!-- Specify the network file -->
+        <net-file value="map.net.xml"/>
+
+        <!-- Specify the route file -->
+        <route-files value="map.rou.xml"/>
+    </input>
+    
+    <time>
+        <!-- Define the simulation start and end times -->
+        <begin value="0"/>
+        <end value="200"/> 
+    </time>
+
+    <report>
+        <!-- Optionally, specify an output file for simulation data -->
+        <fcd-output value="map.fcd.xml"/>
+    </report>
+</configuration>
