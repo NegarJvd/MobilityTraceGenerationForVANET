@@ -18,7 +18,7 @@ fi
 generated_file_name="mobility_$insertion_density.tcl"
 
 cd /home/negar/workspace/ns-allinone-3.38/ns-3.38/metalearn_vanet_clustering_2023_results/sumo
-python /usr/share/sumo/tools/randomTrips.py -n map.net.xml -r map.rou.xml -b 0 -e 200 --insertion-density $insertion_density
+python /usr/share/sumo/tools/randomTrips.py -n map.net.xml -r map.rou.xml -b 0 -e 600 --insertion-density $insertion_density
 sumo -c config.sumocfg --fcd-output map.fcd.xml
 python /usr/share/sumo/tools/traceExporter.py -i map.fcd.xml -n map.net.xml --ns2mobility-output $generated_file_name
 

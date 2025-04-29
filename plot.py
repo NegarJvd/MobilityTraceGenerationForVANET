@@ -1,4 +1,6 @@
-import pandas as pd
+import arabic_reshaper
+from bidi.algorithm import get_display
+# import pandas as pd
 import os
 import re
 import matplotlib.pyplot as plt
@@ -78,9 +80,12 @@ class Ns2NodeUtility:
         for i, (node_id, (start, stop)) in enumerate(sorted(self.node_times.items())):
             ax.barh(y=node_id, width=stop - start, left=start, height=0.6, label=f"Node {node_id}")
 
-        ax.set_xlabel("Time (s)")
-        ax.set_ylabel("Node ID")
-        ax.set_title("Node Activity Over Time")
+        # ax.set_xlabel("Time (s)")
+        # ax.set_ylabel("Node ID")
+        # ax.set_title("Node Activity Over Time")
+        ax.set_xlabel(get_display(arabic_reshaper.reshape("زمان (sثانیه)")))
+        ax.set_ylabel(get_display(arabic_reshaper.reshape("شناسه گره")))
+        ax.set_title(get_display(arabic_reshaper.reshape("بازه ی زمان فعالیت برای هر گره")))
         ax.grid(axis="x", linestyle="--", alpha=0.7)
         plt.savefig(os.path.join('.', file_name))
         # plt.show()
@@ -101,9 +106,12 @@ class Ns2NodeUtility:
         fig, ax = plt.subplots(figsize=(12, 6))
         ax.plot(time_range, active_vehicles, color="blue")
 
-        ax.set_xlabel("Time (s)")
-        ax.set_ylabel("Active Vehicles Count")
-        ax.set_title(f"Number of Active Vehicles Over Time ({self.get_n_nodes()} Nodes)")
+        # ax.set_xlabel("Time (s)")
+        # ax.set_ylabel("Active Vehicles Count")
+        # ax.set_title(f"Number of Active Vehicles Over Time ({self.get_n_nodes()} Nodes)")
+        ax.set_xlabel(get_display(arabic_reshaper.reshape("زمان (ثانیه)")))
+        ax.set_ylabel(get_display(arabic_reshaper.reshape("تعداد گره های فعال")))
+        ax.set_title(get_display(arabic_reshaper.reshape(f"تعداد گره های فعال در هر ثانیه (مجموع {self.get_n_nodes()} گره)")))
         ax.grid(True, linestyle="--", alpha=0.7)
 
         plt.savefig(os.path.join('.', file_name))
