@@ -83,7 +83,7 @@ class Ns2NodeUtility:
         # ax.set_xlabel("Time (s)")
         # ax.set_ylabel("Node ID")
         # ax.set_title("Node Activity Over Time")
-        ax.set_xlabel(get_display(arabic_reshaper.reshape("زمان (sثانیه)")))
+        ax.set_xlabel(get_display(arabic_reshaper.reshape("زمان (ثانیه)")))
         ax.set_ylabel(get_display(arabic_reshaper.reshape("شناسه گره")))
         ax.set_title(get_display(arabic_reshaper.reshape("بازه ی زمان فعالیت برای هر گره")))
         ax.grid(axis="x", linestyle="--", alpha=0.7)

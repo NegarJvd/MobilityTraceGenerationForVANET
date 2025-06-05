@@ -24,7 +24,7 @@ python /usr/share/sumo/tools/traceExporter.py -i map.fcd.xml -n map.net.xml --ns
 
 python3 plot.py
 
-chmod u+w "$generated_file_name"
-mv "$generated_file_name" /home/negar/workspace/ns-allinone-3.38/ns-3.38/scratch/metalearn_vanet_clustering_2023/
+# chmod u+w "$generated_file_name"
+# mv "$generated_file_name" /home/negar/workspace/ns-allinone-3.38/ns-3.38/scratch/metalearn_vanet_clustering_2023/
 
 echo -e "\e[32mSumo file generated for $insertion_density\e[0m"
