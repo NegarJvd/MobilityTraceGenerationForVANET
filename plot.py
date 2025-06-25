@@ -118,16 +118,56 @@ class Ns2NodeUtility:
         # plt.show()
         plt.close()
 
+    def collect_active_vehicles_data(self):
+        if not self.node_times:
+            return {'time_range': [], 'active_vehicles': []}
+        time_range = np.arange(0, int(self.get_simulation_time()) + 1)
+        active_vehicles = np.zeros_like(time_range)
+
+        for start, stop in self.node_times.values():
+            active_vehicles[(time_range >= start) & (time_range <= stop)] += 1
+
+        return {
+            'time_range': time_range,
+            'active_vehicles': active_vehicles
+        }
+
 
 if __name__ == "__main__":
+    colors = ["#6c6c6c", "#f7941d", "#0066b3", "#2ca02c", "#e60049"]
+    
     tcl_files = [f for f in os.listdir() if f.endswith(".tcl")]
+    all_scenarios_data = []
 
     if not tcl_files:
         print("No .tcl files found in the directory.")
     else:
+        i = 0
         for tcl_file in tcl_files:
             print(f"Processing {tcl_file}...")
             ns2_parser = Ns2NodeUtility(tcl_file)
             print(f"Total Nodes: {ns2_parser.get_n_nodes()}, Simulation Time: {ns2_parser.get_simulation_time()}s, X Range: {ns2_parser.get_simulation_x_range()}, Y Range: {ns2_parser.get_simulation_y_range()}")
             ns2_parser.plot_node_activity(tcl_file.replace(".tcl", "_node_activity.png"))
             ns2_parser.plot_active_vehicles_over_time(tcl_file.replace(".tcl", "_network_density.png"))
+            data = ns2_parser.collect_active_vehicles_data()
+            all_scenarios_data.append({
+                'name': get_display(arabic_reshaper.reshape(f"مجموع {ns2_parser.get_n_nodes()} گره")),
+                'data': data,
+                'color': colors[i]
+            })
+
+            i += 1
+
+        plt.figure(figsize=(12, 6))
+        for scenario in all_scenarios_data:
+            time_range = scenario['data']['time_range']
+            active_vehicles = scenario['data']['active_vehicles']
+            plt.plot(time_range, active_vehicles, label=scenario['name'], color=scenario['color'])
+
+        plt.xlabel(get_display(arabic_reshaper.reshape("زمان (ثانیه)")))
+        plt.ylabel(get_display(arabic_reshaper.reshape("تعداد گره های فعال")))
+        plt.legend()
+        plt.grid(axis='y', linestyle='--', alpha=0.5)
+        plt.tight_layout()
+        plt.savefig('all_scenarios_combined.png', transparent=True)
+        plt.close()
