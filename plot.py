@@ -132,9 +132,10 @@ class Ns2NodeUtility:
             'active_vehicles': active_vehicles
         }
 
+
 if __name__ == "__main__":
     colors = ["#6c6c6c", "#f7941d", "#0066b3", "#2ca02c", "#e60049"]
-
+    
     tcl_files = [f for f in os.listdir() if f.endswith(".tcl")]
     all_scenarios_data = []
 
@@ -148,7 +149,6 @@ if __name__ == "__main__":
             print(f"Total Nodes: {ns2_parser.get_n_nodes()}, Simulation Time: {ns2_parser.get_simulation_time()}s, X Range: {ns2_parser.get_simulation_x_range()}, Y Range: {ns2_parser.get_simulation_y_range()}")
             ns2_parser.plot_node_activity(tcl_file.replace(".tcl", "_node_activity.png"))
             ns2_parser.plot_active_vehicles_over_time(tcl_file.replace(".tcl", "_network_density.png"))
-
             data = ns2_parser.collect_active_vehicles_data()
             all_scenarios_data.append({
                 'name': get_display(arabic_reshaper.reshape(f"مجموع {ns2_parser.get_n_nodes()} گره")),
