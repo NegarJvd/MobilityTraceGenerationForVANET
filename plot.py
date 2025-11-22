@@ -151,7 +151,8 @@ if __name__ == "__main__":
             ns2_parser.plot_active_vehicles_over_time(tcl_file.replace(".tcl", "_network_density.png"))
             data = ns2_parser.collect_active_vehicles_data()
             all_scenarios_data.append({
-                'name': get_display(arabic_reshaper.reshape(f"مجموع {ns2_parser.get_n_nodes()} گره")),
+                # 'name': get_display(arabic_reshaper.reshape(f"مجموع {ns2_parser.get_n_nodes()} گره")),
+                'name': get_display(f"Total {ns2_parser.get_n_nodes()} nodes"),
                 'data': data,
                 'color': colors[i]
             })
@@ -164,10 +165,13 @@ if __name__ == "__main__":
             active_vehicles = scenario['data']['active_vehicles']
             plt.plot(time_range, active_vehicles, label=scenario['name'], color=scenario['color'])
 
-        plt.xlabel(get_display(arabic_reshaper.reshape("زمان (ثانیه)")))
-        plt.ylabel(get_display(arabic_reshaper.reshape("تعداد گره های فعال")))
+        # plt.xlabel(get_display(arabic_reshaper.reshape("زمان (ثانیه)")))
+        # plt.ylabel(get_display(arabic_reshaper.reshape("تعداد گره های فعال")))
+        plt.xlabel(get_display("Time (seconds)"), fontweight='bold', fontsize='large')
+        plt.ylabel(get_display("Number of active nodes"), fontweight='bold', fontsize='large')
+
         plt.legend()
         plt.grid(axis='y', linestyle='--', alpha=0.5)
         plt.tight_layout()
-        plt.savefig('all_scenarios_combined.png', transparent=True)
+        plt.savefig('network-density.png', transparent=True)
         plt.close()
